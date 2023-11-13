@@ -1,0 +1,28 @@
+/* styles.css */
+
+body, html {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f7f7f7;
+  }
+  
+  .interactive-image {
+    transition: transform 0.3s ease;
+  }
+  
+  .interactive-image img {
+    width: 250px; /* Set this to the desired width */
+    transition: filter 0.3s ease, transform 0.3s ease;
+  }
+  
+  .interactive-image img:hover {
+    transform: scale(1.1); /* Enlarges the image on hover */
+  }
+  
+  .interactive-image img:active {
+    filter: hue-rotate(90deg); /* Changes color when clicked */
+  }
+  
