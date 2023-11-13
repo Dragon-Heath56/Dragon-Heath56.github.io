@@ -1,4 +1,5 @@
 // script.js
+const video = document.getElementById("video");
 
 document.addEventListener('DOMContentLoaded', (event) => {
   const raccoonImage = document.getElementById('raccoonImage');
@@ -34,25 +35,95 @@ document.addEventListener('keydown', function(event) {
   }
 });
 
+// Object to keep track of corners pressed
+let cornersPressed = {
+  topLeft: false,
+  topRight: false,
+  bottomLeft: false,
+  bottomRight: false
+};
+
+// Reset corners after a timeout
+const resetCorners = () => {
+  cornersPressed = {
+    topLeft: false,
+    topRight: false,
+    bottomLeft: false,
+    bottomRight: false
+  };
+};
+
+// Check if all corners have been pressed
+const checkCorners = () => {
+  if (cornersPressed.topLeft && cornersPressed.topRight && cornersPressed.bottomLeft && cornersPressed.bottomRight) {
+    video.hidden = false;
+    video.play();
+
+    // Request fullscreen if it is not already in fullscreen mode
+    const { documentElement } = document;
+    if(documentElement.requestFullscreen) documentElement.requestFullscreen();
+    else if(documentElement.mozRequestFullScreen) documentElement.mozRequestFullScreen();
+    else if(documentElement.webkitRequestFullscreen) documentElement.webkitRequestFullscreen();
+    else if(documentElement.msRequestFullscreen) documentElement.msRequestFullscreen();
+
+    resetCorners();
+  }
+};
+
+// Time allowed between corner presses
+const timeInterval = 5000; // 5 seconds
+
+document.addEventListener('mousedown', function(event) {
+  // Get the width and height of the viewport
+  const width = window.innerWidth;
+  const height = window.innerHeight;
+
+  // Define the size of the corner areas, e.g., 50x50 pixels
+  const cornerSize = 80;
+
+  // Get the X and Y coordinates of the click
+  const x = event.clientX;
+  const y = event.clientY;
+
+  // Check if any corner was clicked and set the corner as pressed
+  if (x <= cornerSize && y <= cornerSize) {
+    cornersPressed.topLeft = true;
+    setTimeout(resetCorners, timeInterval);
+  } else if (x >= width - cornerSize && y <= cornerSize) {
+    cornersPressed.topRight = true;
+    setTimeout(resetCorners, timeInterval);
+  } else if (x <= cornerSize && y >= height - cornerSize) {
+    cornersPressed.bottomLeft = true;
+    setTimeout(resetCorners, timeInterval);
+  } else if (x >= width - cornerSize && y >= height - cornerSize) {
+    cornersPressed.bottomRight = true;
+    setTimeout(resetCorners, timeInterval);
+  }
+
+  // Check if all corners have been pressed
+  checkCorners();
+});
+
 document.addEventListener('DOMContentLoaded', (event) => {
-      let userInput = '';
-      const targetString = 'Oreo';
-      
-      document.addEventListener('keypress', (e) => {
-        // Append the pressed key to the userInput string
-        userInput += e.key;
-        
-        // Check if the end of userInput matches the target string
-        if (userInput.slice(-targetString.length).toLowerCase() === targetString.toLowerCase()) {
-          alert('Prerana on top 🥰');
-          // Clear userInput if you want to be able to detect the word again
-          userInput = '';
-        }
-        
-        // Optional: clear the userInput after a certain time of inactivity
-        clearTimeout(userInput.timeoutID);
-        userInput.timeoutID = setTimeout(() => {
-          userInput = '';
-        }, 2000); // Clears userInput after 2 seconds of inactivity
-      });
-    });
+  let userInput = '';
+  const targetString = 'Oreo';
+  
+  document.addEventListener('keypress', (e) => {
+    // Append the pressed key to the userInput string
+    userInput += e.key;
+    
+    // Check if the end of userInput matches the target string
+    if (userInput.slice(-targetString.length).toLowerCase() === targetString.toLowerCase()) {
+      alert('Prerana on top 🥰');
+      // Clear userInput if you want to be able to detect the word again
+      userInput = '';
+    }
+    
+    // Optional: clear the userInput after a certain time of inactivity
+    clearTimeout(userInput.timeoutID);
+    userInput.timeoutID = setTimeout(() => {
+      userInput = '';
+    }, 2000); // Clears userInput after 2 seconds of inactivity
+  });
+});
+
