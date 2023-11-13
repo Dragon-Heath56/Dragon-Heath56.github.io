@@ -1,4 +1,17 @@
 /* styles.css */
+/* Add this at the top of your CSS file to import the Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Alex+Brush&display=swap');
+
+/* styles.css */
+/* ... existing styles ... */
+
+#titleText {
+  font-family: 'Alex Brush', cursive; /* This is the fancy font */
+  color: #fff; /* White color text */
+  font-size: 32px; /* Size of the font */
+  text-align: center; /* Center the text */
+  margin-top: 20px; /* Add space between the image and the text */
+}
 
 body, html {
     height: 100%;
@@ -7,6 +20,7 @@ body, html {
     justify-content: center;
     align-items: center;
     background-color: #000000;
+    cursor: url('plane.png'), auto;
   }
   
   .interactive-image {
@@ -16,6 +30,7 @@ body, html {
   .interactive-image img {
     width: 250px; /* Set this to the desired width */
     transition: filter 0.3s ease, transform 0.3s ease;
+    border-radius: 20px; /* Adds rounded corners to the image */
   }
   
   .interactive-image img:hover {
