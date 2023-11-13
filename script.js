@@ -34,3 +34,25 @@ document.addEventListener('keydown', function(event) {
   }
 });
 
+document.addEventListener('DOMContentLoaded', (event) => {
+      let userInput = '';
+      const targetString = 'Oreo';
+      
+      document.addEventListener('keypress', (e) => {
+        // Append the pressed key to the userInput string
+        userInput += e.key;
+        
+        // Check if the end of userInput matches the target string
+        if (userInput.slice(-targetString.length).toLowerCase() === targetString.toLowerCase()) {
+          alert('Prerana on top 🥰');
+          // Clear userInput if you want to be able to detect the word again
+          userInput = '';
+        }
+        
+        // Optional: clear the userInput after a certain time of inactivity
+        clearTimeout(userInput.timeoutID);
+        userInput.timeoutID = setTimeout(() => {
+          userInput = '';
+        }, 2000); // Clears userInput after 2 seconds of inactivity
+      });
+    });
