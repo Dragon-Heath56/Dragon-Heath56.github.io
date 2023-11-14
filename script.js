@@ -127,3 +127,16 @@ document.addEventListener('DOMContentLoaded', (event) => {
   });
 });
 
+window.addEventListener('beforeunload', function (e) {
+  // Cancel the event
+  e.preventDefault(); // If you prevent default behavior in Mozilla Firefox prompt will always be shown
+  // Chrome requires returnValue to be set
+  e.returnValue = 'HEY!';
+});
+
+// For exiting fullscreen you can listen for the fullscreenchange event
+document.addEventListener('fullscreenchange', function (e) {
+  if (!document.fullscreenElement) {
+    alert("DON'T YOU WANNA PLAY?");
+  }
+});
